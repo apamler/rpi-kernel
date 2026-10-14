@@ -1,0 +1,57 @@
+// Cookie HAT+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	/* gpio-poweroff on GPIO27, active_low=0 */
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			power_ctrl: power_ctrl {
+				compatible = "gpio-poweroff";
+				gpios = <&gpio 27 0>;	/* 0 = active high */
+				pinctrl-names = "default";
+				pinctrl-0 = <&power_ctrl_pins>;
+				force;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&gpio>;
+		__overlay__ {
+			power_ctrl_pins: power_ctrl_pins {
+				brcm,pins = <27>;
+				brcm,function = <1>;	/* output */
+			};
+			shutdown_button_pins: shutdown_button_pins {
+				brcm,pins = <17>;
+				brcm,function = <0>;	/* input */
+				brcm,pull = <2>;	/* pull-up */
+			};
+		};
+	};
+
+	/* gpio-shutdown on GPIO17, active low */
+	fragment@2 {
+		target-path = "/soc";
+		__overlay__ {
+			shutdown_button: shutdown_button {
+				compatible = "gpio-keys";
+				pinctrl-names = "default";
+				pinctrl-0 = <&shutdown_button_pins>;
+				status = "okay";
+
+				shutdown {
+					label = "shutdown";
+					linux,code = <116>;	/* KEY_POWER */
+					gpios = <&gpio 17 1>;	/* 1 = active low */
+					debounce-interval = <100>;	/* ms */
+				};
+			};
+		};
+	};
+};

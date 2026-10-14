@@ -44,6 +44,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	cirrus-wm5102.dtbo \
 	cm-swap-i2c0.dtbo \
 	cma.dtbo \
+	cookie-switch.dtbo \
 	crystalfontz-cfa050_pi_m.dtbo \
 	cutiepi-panel.dtbo \
 	dacberry400.dtbo \

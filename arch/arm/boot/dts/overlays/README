@@ -1086,6 +1086,14 @@ Params: cma-512                 CMA is 512MB (needs 1GB)
         cma-default             Use upstream's default value
 
 
+Name:   cookie-switch
+Info:   Fraunhofer Austria Cookie HAT+ soft power controller.
+        GPIO17 (active low, pull-up) triggers a shutdown, GPIO27 signals
+        the power-off state to the controller.
+Load:   dtoverlay=cookie-switch
+Params: <None>
+
+
 Name:   crystalfontz-cfa050_pi_m
 Info:   Configures the Crystalfontz CFA050-PI-M series of Raspberry Pi CM4
         and CM5 based modules using the CFA7201280A0_050Tx 7" TFT LCD displays,
